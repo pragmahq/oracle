@@ -6,7 +6,8 @@ export const users = pgTable("users", {
   discord_id: varchar("discord_id").primaryKey(),
   username: varchar("username").notNull(),
   display_name: varchar("display_name").notNull(),
-  runes: varchar("runes").notNull(), // Rise, Tarnished.
+  runes: integer("runes").notNull(), // Rise, Tarnished.
   social_links: varchar("social_links"),
   account_secret: varchar("account_secret").notNull(),
+  onboarding: boolean("onboarding").$default(() => false),
 });

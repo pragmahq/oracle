@@ -19,6 +19,7 @@
   "dependencies": {
     "@types/pg": "^8.11.6",
     "@types/uuid": "^10.0.0",
+    "crypto": "^1.0.1",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.32.0",

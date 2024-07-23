@@ -1,8 +1,20 @@
-import { Client, GuildMember } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  Client,
+  EmbedBuilder,
+  GuildMember,
+} from "discord.js";
 import { commands } from "./commands";
 import { deployCommands } from "./deploy-commands";
 import ENV from "./env";
 import ARGS from "./args";
+import { randomBytes } from "crypto";
+import { addMemberToDB, sendOnboardingMessage } from "./helpers";
+import db from "./db";
+import { users } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
 
 if (ARGS.DEVMODE) {
   console.log("[i] Development mode. Making changes will restart the bot.");
@@ -40,9 +52,15 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 client.on("guildMemberAdd", async (member: GuildMember) => {
-  member.send(
-    "Welcome to the Pragma Community! Please complete the onboarding process to be able to interact with the community."
-  );
+  const user = await db
+    .select()
+    .from(users)
+    .where(eq(users.discord_id, member.id));
+
+  if (!(user && user[0].onboarding)) {
+    sendOnboardingMessage(member);
+    addMemberToDB(member);
+  }
 });
 
 client.login(ENV.BOT_TOKEN);
