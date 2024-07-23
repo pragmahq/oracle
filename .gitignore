@@ -177,4 +177,6 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 
-
+# Drizzle
+*.sql
+drizzle/meta

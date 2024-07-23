@@ -1,5 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-import { ENV } from "./env";
+import ENV from "./src/env";
 
 export default defineConfig({
   dialect: "postgresql",
@@ -8,5 +8,6 @@ export default defineConfig({
   dbCredentials: {
     url: ENV.POSTGRES_URL,
     port: 5432,
+    // ssl: "require",
   },
 });

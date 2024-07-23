@@ -2,7 +2,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
 import dotenv from "dotenv";
 import * as schema from "../drizzle/schema";
-import { ENV } from "../env";
+import ENV from "./env";
 
 dotenv.config();
 
