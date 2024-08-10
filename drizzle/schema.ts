@@ -1,13 +1,22 @@
-import { boolean, integer, pgTable, varchar, text } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  integer,
+  pgTable,
+  varchar,
+  text,
+  json,
+} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
+  id: varchar("id").primaryKey(),
   visibility: boolean("visibility").notNull(),
-  discord_id: varchar("discord_id").primaryKey(),
-  username: varchar("username").notNull(),
-  display_name: varchar("display_name").notNull(),
-  runes: integer("runes").notNull(), // Rise, Tarnished.
-  social_links: varchar("social_links"),
+  bio: text("bio").$default(() => "Bio"),
+  interests: varchar("interests"),
+  runes: integer("runes").notNull(), // Rise, Tarnished!
   account_secret: varchar("account_secret").notNull(),
   onboarding: boolean("onboarding").$default(() => false),
+  achievements: json("achievements").$default(() => {
+    achievements: [];
+  }),
 });

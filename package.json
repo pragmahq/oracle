@@ -3,10 +3,12 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch src/index.ts --watch \"src/**/*.ts\" --dev",
+    "dev": "./start-database.sh && bun --watch src/index.ts --watch \"src/**/*.ts\" --dev",
     "start": "bun src/run index.ts",
-    "studio": "bunx drizzle-kit studio",
-    "push": "bunx drizzle-kit push"
+    "db:studio": "bunx drizzle-kit studio",
+    "db:push": "bunx drizzle-kit push",
+    "db:migrate": "bunx drizzle-kit migrate",
+    "db:generate": "bunx drizzle-kit generate"
   },
   "devDependencies": {
     "@types/bun": "latest",

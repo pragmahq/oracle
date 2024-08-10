@@ -6,4 +6,5 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: CommandInteraction) {
   await interaction.reply(`Pong! <@${interaction.user.id}>`);
+  console.log(interaction.user.avatarURL());
 }
