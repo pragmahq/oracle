@@ -25,19 +25,19 @@ export async function sendOnboardingMessage(member: GuildMember, interaction: Co
 
   // Get bio
   await member.send("# Welcome to Pragma!\nWe are glad that you're here! Let's build your Pragma profile. First, give a short description about you. Send it in the chat, and that will be your bio. (Type \"EXIT\" to stop)")
-  const collector = member.dmChannel!.createMessageCollector({ max: 1 });
+  const collector = member.dmChannel!.createMessageCollector({ max: 1, filter: m => m.author.id !== m.client.user.id });
   collector.on('end', async (collected) => {
     bio = collected.map(x => x.content)[0]
-    console.log(bio);
+    // console.log(bio);
     if (bio === "EXIT") {
       member.send("Onboarding flow cancelled. You can always restart it using the `/onboarding` command in the server.")
       return
     }
     await member.send("Write a few lines about your interests. Remember, this information will be used by interested people to contact you about projects or help. Make it as concise as possible. (Type \"EXIT\" to stop)")
-    const interestsCollector = member.dmChannel!.createMessageCollector({ max: 1 })
+    const interestsCollector = member.dmChannel!.createMessageCollector({ max: 1, filter: m => m.author.id !== m.client.user.id })
     interestsCollector.on('end', async (collected) => {
       interests = collected.map(x => x.content)[0]
-      console.log(interests);
+      // console.log(interests);
       if (interests === "EXIT") {
         member.send("Onboarding flow cancelled. You can always restart it using the `/onboarding` command in the server.")
         return
